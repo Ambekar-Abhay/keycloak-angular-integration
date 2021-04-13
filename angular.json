@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "employee-portal"
+  "defaultProject": "employee-portal",
+  "cli": {
+    "analytics": "ec79577b-bfe4-4cc5-a7fc-7df01f846ce1"
+  }
 }
