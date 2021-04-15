@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializer } from '../utils/app-init';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { HeaderComponent } from './index/header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
