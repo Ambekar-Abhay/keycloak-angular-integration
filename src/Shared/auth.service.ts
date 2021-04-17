@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, RouterStateSnapshot,Router, CanActivate, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
-import { Observable } from 'rxjs';
-import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard extends KeycloakAuthGuard{
+export class AuthService extends KeycloakAuthGuard  {
   constructor(
     protected readonly router: Router,
-    public keycloak: KeycloakService,
-    public sharedservice:SharedService
+    protected readonly keycloak: KeycloakService
   ) {
     super(router, keycloak);
   }
@@ -23,14 +20,13 @@ export class AuthGuard extends KeycloakAuthGuard{
     // Force the user to log in if currently unauthenticated.
     if (!this.authenticated) {
       await this.keycloak.login({
-        redirectUri: window.location.origin,
+        redirectUri: window.location.origin + state.url,
       });
     }
+
     // Get the roles required from the route.
     const requiredRoles = route.data.roles;
-   console.log(this.keycloak._instance.idTokenParsed)
-   this.sharedservice.userObj.next(this.keycloak._instance.idTokenParsed)
-   this.sharedservice.role.next(this.roles[0])
+
     // Allow the user to to proceed if no additional roles are required to access the route.
     if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
       return true;

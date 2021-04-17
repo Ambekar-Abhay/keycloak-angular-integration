@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
+import { AuthGuard } from 'src/Shared/auth.guard';
 
 @Component({
   selector: 'app-employee',
@@ -8,7 +9,7 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(protected readonly keycloak: KeycloakService) { }
+  constructor(protected readonly keycloak: KeycloakService,private AuthGuard:AuthGuard) { }
 
   ngOnInit(): void {
     console.log(this.keycloak)
